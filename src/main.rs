@@ -439,8 +439,8 @@ pub fn build(
 
     println!("Finished fetching build dependencies");
     std::process::Command::new("docker")
-        .args(["exec", "-w", &build_path, &container_id])
-        .args(["cargo", build_command, "--", "--locked", "--frozen"])
+        .args(["exec", "-e", "RUST_LOG=debug", "-w", &build_path, &container_id])
+        .args(["cargo", build_command, "--", "--locked", "--frozen", "--offline"])
         .args(manifest_path_filter)
         .args(cargo_args)
         .stderr(Stdio::inherit())
